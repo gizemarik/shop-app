@@ -6,10 +6,12 @@ import * as Font from 'expo-font';
 import cartReducer from './store/reducers/cart';
 import productsReducer from './store/reducers/products';
 import ShopNavigator from './navigation/ShopNavigator';
+import orderReducer from './store/reducers/order';
 
 const rootReducer = combineReducers({
   products: productsReducer,
-  cart: cartReducer
+  cart: cartReducer,
+  orders: orderReducer
 });
 
 const store = createStore(rootReducer);
