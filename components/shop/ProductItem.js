@@ -1,25 +1,39 @@
 
 import React from 'react';
-import { View, Text, Image, StyleSheet, Button } from 'react-native';
+import { View, Text, Image, StyleSheet, Button, TouchableOpacity, TouchableNativeFeedback, Platform } from 'react-native';
 import Colors from '../../constant/Colors';
 
 const ProductItem = props => {
+    let TouchableCmp = TouchableOpacity;
 
+    if (Platform.OS === 'android' && Platform.Version >= 21) {
+        TouchableCmp = TouchableNativeFeedback;
+    }
     return (
         <View style={styles.product}>
-            <View style={styles.imgContainer}>
-                <Image style={styles.image} source={{ uri: props.image }} />
-            </View>
-            <View style={styles.details}>
-                <Text style={styles.title}>{props.title}</Text>
-                <Text style={styles.price}>{props.price.toFixed(2)} TL</Text>
+            <View style={styles.touchable}>
+                <TouchableCmp onPress={props.onViewDetail} useForeground>
+                    <View>
+                        <View style={styles.imgContainer}>
+                            <Image style={styles.image} source={{ uri: props.image }} />
+                        </View>
+                        <View style={styles.details}>
+                            <Text style={styles.title}>{props.title}</Text>
+                            <Text style={styles.price}>{props.price.toFixed(2)} TL</Text>
+                        </View>
+
+                        <View style={styles.actions}>
+                            <Button color={Colors.primary} title="Ürün Detayı" onPress={props.onViewDetail} />
+                            <Button color={Colors.primary} title="Sepete Ekle" onPress={props.onAddToCart} />
+                        </View>
+                    </View>
+
+                </TouchableCmp>
             </View>
 
-            <View style={styles.actions}>
-                <Button color={Colors.primary} title="Ürün Detayı" onPress={props.onViewDetail} />
-                <Button color={Colors.primary} title="Sepete Ekle" onPress={props.onAddToCart} />
-            </View>
+
         </View>
+
     );
 };
 
@@ -33,7 +47,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         backgroundColor: 'white',
         height: 300,
-        margin: 20
+        margin: 20,
     },
     image: {
         width: '100%',
@@ -62,7 +76,11 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '60%',
         borderTopLeftRadius: 10,
-        borderTopRightRadius:10,
+        borderTopRightRadius: 10,
+        overflow: 'hidden'
+    },
+    touchable: {
+        borderRadius: 10,
         overflow: 'hidden'
     }
 });
