@@ -7,7 +7,7 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-    switch (key) {
+    switch (action.type) {
         case ADD_TO_CART:
             const addedProduct = action.product;
             const prodPrice = addedProduct.price;
