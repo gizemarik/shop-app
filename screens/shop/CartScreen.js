@@ -66,6 +66,10 @@ const CartScreen = props => {
     );
 };
 
+CartScreen.navigationOptions = {
+    headerTitle: 'Sepetim'
+};
+
 const styles = StyleSheet.create({
     screen: {
         margin: 20
